@@ -8,13 +8,13 @@ import {
 import readFile from '../../utils/readFile.js';
 import { describe, expect, test } from 'vitest';
 
-describe.only('Day 1', async () => {
+describe('Day 1', async () => {
 	test('first solution test', async () => {
 		const input = await readTestFile();
 		expect(first(input)).toBe(expectedFirstSolution);
 	});
 
-	test.only('second solution test', async () => {
+	test('second solution test', async () => {
 		const input = await readTestFile();
 		expect(second(input)).toBe(expectedSecondSolution);
 		const input2 = await readTestFile(2);
