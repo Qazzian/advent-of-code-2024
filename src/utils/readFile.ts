@@ -1,12 +1,6 @@
-import { readFile } from 'fs';
+import { readFile } from 'node:fs/promises';
 
 export default (inputFilePath: string) => {
-	return new Promise<string>((resolve, reject) => {
-		readFile(inputFilePath, 'utf-8', (err, data) => {
-			if (err) {
-				reject(err);
-			}
-			resolve(data);
-		});
-	});
+	return readFile(inputFilePath, 'utf-8');
 };
+
