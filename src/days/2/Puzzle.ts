@@ -12,10 +12,17 @@ const first = (input: string) => {
 const expectedFirstSolution = 2;
 
 const second = (input: string) => {
-	return 'solution 2';
+	const reportData: number[][] = splitInput(input);
+
+	return reportData.reduce((safeReportCount, reportLine) => {
+		if ( isReportSafe(reportLine, true)) {
+			return safeReportCount + 1
+		}
+		return safeReportCount;
+	}, 0);
 };
 
-const expectedSecondSolution = 'solution 2';
+const expectedSecondSolution = 4;
 
 export { first, expectedFirstSolution, second, expectedSecondSolution };
 
@@ -31,25 +38,34 @@ export function splitReport(inputLine: string) {
 	return split.map((s) => parseInt(s));
 }
 
-export function isReportSafe(reportData: number[]): boolean {
+export function isReportSafe(reportData: number[], useDampen:boolean = false): boolean {
 	const hasIncreased = isIncreasing(reportData[0], reportData[1]);
 	let currentIndex = 0;
+
+	const doDampen = (index: number) => {
+		return useDampen && dampen(reportData, index);
+	}
 
 	while (currentIndex < reportData.length - 1) {
 		const diff = reportData[currentIndex] - reportData[currentIndex + 1];
 		if (hasIncreased && !isIncreasing(reportData[currentIndex], reportData[currentIndex + 1])) {
-			return false;
+			return doDampen(currentIndex);
 		}
 		if (!hasIncreased && isIncreasing(reportData[currentIndex], reportData[currentIndex + 1])) {
-			return false;
+			return doDampen(currentIndex);
 		}
 		if (Math.abs(diff) > 3 || diff === 0) {
-			return false;
+			return doDampen(currentIndex);
 		}
 		currentIndex++;
 	}
 
 	return true;
+}
+
+function dampen(reportData: number[], indexToRemove: number): boolean {
+	const newReport = reportData.toSpliced(indexToRemove, 1);
+	return isReportSafe(newReport);
 }
 
 function isIncreasing(num1:number, num2: number) {
