@@ -39,7 +39,7 @@ describe('Day 2', () => {
 		expect(first(input)).toBe(expectedFirstSolution);
 	});
 
-	test('dampen', () => {
+	describe('dampen', () => {
 		const data = {
 			'7 6 4 2 1': true,
 			'1 2 7 8 9': false,
@@ -49,11 +49,16 @@ describe('Day 2', () => {
 			'1 3 6 7 9': true,
 			'73 75 73 74 75 75': false,
 			'20 17 18 21 23 25': true,
+			'1 2 3 4': true,
+			'1 3 2 4': true,
+			'1 3 2 6 4': false,
 		};
 
 		for (const [key, value] of Object.entries(data)) {
-			const input = splitReport(key);
-			expect(isReportSafe(input, true)).toBe(value);
+			test(key, () =>{
+				const input = splitReport(key);
+				expect(isReportSafe(input, true)).toBe(value);
+			});
 		}
 	});
 
