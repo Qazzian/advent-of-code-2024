@@ -18,17 +18,17 @@ const expectedFirstSolution = 2;
 
 const second = (input: string) => {
 	const reportData: number[][] = splitInput(input);
-	const unsafeReports: number[][] = [];
+	// const unsafeReports: number[][] = [];
 
 	const safeReportCount =  reportData.reduce((runningCount, reportLine) => {
 		if ( isReportSafe(reportLine, true)) {
 			return runningCount + 1
 		}
-		unsafeReports.push(reportLine);
+		// unsafeReports.push(reportLine);
 		return runningCount;
 	}, 0);
 
-	console.log(JSON.stringify(unsafeReports));
+	// console.log(JSON.stringify(unsafeReports));
 	return safeReportCount;
 };
 
@@ -53,7 +53,8 @@ export function isReportSafe(reportData: number[], useDampen:boolean = false): b
 	let currentIndex = 0;
 
 	const doDampen = (index: number) => {
-		return useDampen && (dampen(reportData, index) || dampen(reportData, index+1));
+		return useDampen &&
+			(dampen(reportData, index) || dampen(reportData, index+1) || dampen(reportData, index-1));
 	}
 
 	while (currentIndex < reportData.length - 1) {
