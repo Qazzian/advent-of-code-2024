@@ -47,13 +47,14 @@ describe('Day 2', () => {
 			'1 3 2 4 5': true,
 			'8 6 4 4 1': true,
 			'1 3 6 7 9': true,
+			'73 75 73 74 75 75': false,
+			'20 17 18 21 23 25': true,
 		};
 
 		for (const [key, value] of Object.entries(data)) {
 			const input = splitReport(key);
 			expect(isReportSafe(input, true)).toBe(value);
 		}
-
 	});
 
 	test('second solution test', async () => {
@@ -79,3 +80,16 @@ const unsafeReports = [
 	[82, 85, 82, 85, 89],
 	[79, 82, 84, 83, 85, 92],
 ];
+
+describe('day 2 part 2', ()=>{
+	test('report 1', () => {
+		const reallyUnsafeReports: number[][] = [];
+		for (let report of unsafeReports) {
+			if (!isReportSafe(report, true)) {
+				reallyUnsafeReports.push(report);
+			}
+		}
+		console.log('unsafe count: ', reallyUnsafeReports.length, 'out of', unsafeReports.length);
+		console.log(JSON.stringify(reallyUnsafeReports));
+	});
+});

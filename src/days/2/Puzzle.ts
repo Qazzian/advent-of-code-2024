@@ -1,31 +1,35 @@
 const first = (input: string) => {
 	const reportData: number[][] = splitInput(input);
-	const unsafeReports = [];
+	// const unsafeReports: number[][] = [];
 
-	const safeReportCount = reportData.reduce((safeReportCount, reportLine) => {
+	const safeReportCount = reportData.reduce((runningCount, reportLine) => {
 		if ( isReportSafe(reportLine)) {
-			return safeReportCount + 1
+			return runningCount + 1
 		}
-		unsafeReports.push(reportLine);
-		return safeReportCount;
+		// unsafeReports.push(reportLine);
+		return runningCount;
 	}, 0);
 
-	console.log(unsafeReports);
+	// console.log(JSON.stringify(unsafeReports));
 	return safeReportCount;
-
 };
 
 const expectedFirstSolution = 2;
 
 const second = (input: string) => {
 	const reportData: number[][] = splitInput(input);
+	const unsafeReports: number[][] = [];
 
-	return reportData.reduce((safeReportCount, reportLine) => {
+	const safeReportCount =  reportData.reduce((runningCount, reportLine) => {
 		if ( isReportSafe(reportLine, true)) {
-			return safeReportCount + 1
+			return runningCount + 1
 		}
-		return safeReportCount;
+		unsafeReports.push(reportLine);
+		return runningCount;
 	}, 0);
+
+	console.log(JSON.stringify(unsafeReports));
+	return safeReportCount;
 };
 
 const expectedSecondSolution = 4;
@@ -49,7 +53,7 @@ export function isReportSafe(reportData: number[], useDampen:boolean = false): b
 	let currentIndex = 0;
 
 	const doDampen = (index: number) => {
-		return useDampen && dampen(reportData, index);
+		return useDampen && (dampen(reportData, index) || dampen(reportData, index+1));
 	}
 
 	while (currentIndex < reportData.length - 1) {
@@ -70,7 +74,8 @@ export function isReportSafe(reportData: number[], useDampen:boolean = false): b
 }
 
 function dampen(reportData: number[], indexToRemove: number): boolean {
-	const newReport = reportData.slice().splice(indexToRemove, 1);
+	const newReport = reportData.slice();
+	newReport.splice(indexToRemove, 1);
 	return isReportSafe(newReport);
 }
 
