@@ -1,5 +1,5 @@
 import {describe, expect, test} from 'vitest';
-import {first, toMath, findMathFunctions} from './Puzzle';
+import { first, toMath, findMathFunctions, findDoParts, second, expectedSecondSolution } from './Puzzle';
 import path = require('node:path');
 import { readFile } from 'node:fs/promises';
 
@@ -18,6 +18,17 @@ describe('Day 3', () => {
 		const input = await readTestFile(1);
 		expect(first(input)).toBe(161);
 	});
+
+	test('findDoParts', async () => {
+		const input = await readTestFile(2);
+		const doParts = findDoParts(input);
+		expect(doParts.length).toBe(2);
+	});
+
+	test('second solution test', async () => {
+		const input = await readTestFile(2);
+		expect(second(input)).toBe(expectedSecondSolution);
+	})
 });
 
 
