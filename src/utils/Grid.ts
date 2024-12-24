@@ -1,3 +1,4 @@
+import { Vector } from './Vector.js';
 
 export default class Grid<T> {
 	private readonly values: T[][];
@@ -10,8 +11,19 @@ export default class Grid<T> {
 		this.height = values.length;
 	}
 
-	at(x: number, y: number): T {
+	// at(x: number, y: number): T {
+	// 	return this.values[y][x];
+	// }
+	at([x, y]: Vector) {
 		return this.values[y][x];
+	}
+
+	hasPos([x, y]: Vector) {
+		if (x < 0) return false;
+		if (y < 0) return false;
+		if (y >= this.height) return false;
+		if (x >= this.values[y].length) return false;
+		return true;
 	}
 
 	forEach(fn: (values: T, x:number, y:number) => any) {
