@@ -1,16 +1,27 @@
+import { describe, expect, it } from 'vitest';
+import { findXmas, toGrid } from './Puzzle.js';
+
+
 describe('Day 4', () => {
 	describe('simple examples', () => {
 		it('should find XMAS left to right', () => {
-			expect(find('XMAS')).toBe(1);
-			expect(find('qXMAS')).toBe(1);
-			expect(find('XMASq')).toBe(1);
+			expect(findXmas('XMAS')).toBe(1);
+			expect(findXmas('qXMAS')).toBe(1);
+			expect(findXmas('XMASq')).toBe(1);
+			expect(findXmas('XMASXMAS')).toBe(2);
+			expect(findXmas('XMAS\nXMAS\n')).toBe(2);
 		});
 
 		it('should find XMAS right to left', () => {
-			expect(find('SAMX')).toBe(1);
+			expect(findXmas('SAMX')).toBe(1);
+			expect(findXmas('SAMX\nSAMX')).toBe(2);
+			expect(findXmas('SA\nMX')).toBe(0);
+			expect(findXmas('SAMX\nXMAS')).toBe(2);
+			expect(findXmas('abcSAMXbgt')).toBe(1);
 		});
 
 		it('should find XMAS top to bottom', () => {
+			expect(findXmas('X\nM\nA\nS')).toBe(1);
 			
 		});
 
@@ -34,4 +45,12 @@ describe('Day 4', () => {
 			
 		});
 	});
+
+	describe('utility functions', () => {
+		it('should create a grid from basic input', () => {
+			const grid = toGrid('abcd\nefgh\nijkl\nmnop');
+			expect(grid.height).toBe(4);
+			expect(grid.width).toBe(4);
+		});
+	})
 });
