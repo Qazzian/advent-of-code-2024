@@ -27,10 +27,33 @@ export function findXmas(input: string): number {
 const expectedFirstSolution = 18;
 
 const second = (input: string) => {
-  return 'solution 2';
+  return findX_Mas(input);
 };
 
-const expectedSecondSolution = 'solution 2';
+function findX_Mas(input: string): number {
+  const theGrid = toGrid(input);
+  let total = 0;
+  
+  theGrid.forEach((value, x, y) => {
+    if (x === 0 || y === 0 || x === theGrid.width -1 || y === theGrid.height-1) {
+      return;
+    }
+    if (value === 'A') {
+			const pos = vector(x, y);
+			const [nw, se] = [theGrid.at(add(pos, NW)), theGrid.at(add(pos, SE))];
+			const [ne, sw] = [theGrid.at(add(pos, NE)), theGrid.at(add(pos, SW))];
+      if (((nw === 'M' && se === 'S') || (nw === 'S' && se === 'M')) &&
+        ((ne === 'M' && sw === 'S') || (ne === 'S' && sw === 'M'))
+      ) {
+        total += 1;
+      }
+		}
+  })
+
+  return total;
+}
+
+const expectedSecondSolution = 9;
 
 export { first, expectedFirstSolution, second, expectedSecondSolution };
 
