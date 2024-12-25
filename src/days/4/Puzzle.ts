@@ -4,7 +4,7 @@ import { N, NE, E, SE, S, SW, W, NW, vector, Vector, add } from '../../utils/Vec
 const directions: Vector[] = [N, NE, E, SE, S, SW, W, NW];
 
 const first = (input: string) => {
-  return 'solution 1';
+  return findXmas(input);
 };
 
 

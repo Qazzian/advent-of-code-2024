@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { findXmas, toGrid } from './Puzzle.js';
+import { expectedFirstSolution, findXmas, first, toGrid } from './Puzzle.js';
+import path = require('node:path');
+import readFile from '../../utils/readFile.js';
 
 
 describe('Day 4', () => {
@@ -26,24 +28,29 @@ describe('Day 4', () => {
 		});
 
 		it('should find XMAS bottom to top', () => {
-			
+			expect(findXmas('S\nA\nM\nX')).toBe(1);
 		});
 
 		it('should find XMAS diagonal top-left to bottom-right', () => {
-			
+			expect(findXmas('X...\n.M..\n..A.\n...S')).toBe(1);
 		});
 
 		it('should find diagonal top-right to bottom left', () => {
-			
+			expect(findXmas('...X\n..M.\n.A..\nS...')).toBe(1);
 		});
 
 		it('should find diagonal bottom-left to top-right', () => {
-			
+			expect(findXmas('...S\n..A.\n.M..\nX...')).toBe(1);
 		});
 
 		it('should find diagonal bottom-right to top-left', () => {
-			
+			expect(findXmas('S...\n.A..\n..M.\n...X')).toBe(1);
 		});
+	});
+
+	it('part 1', async () => {
+		const testInput = await readTestFile();
+		expect(first(testInput)).toBe(expectedFirstSolution);
 	});
 
 	describe('utility functions', () => {
@@ -54,3 +61,10 @@ describe('Day 4', () => {
 		});
 	})
 });
+
+
+
+async function readTestFile(num: number = 1) {
+	const inputFile = path.join(__dirname, `example-test-${num}.txt`);
+	return await readFile(inputFile);
+}
