@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { expectedFirstSolution, findXmas, first, toGrid } from './Puzzle.js';
+import { expectedFirstSolution, expectedSecondSolution, findXmas, first, second, toGrid } from './Puzzle.js';
 import path = require('node:path');
 import readFile from '../../utils/readFile.js';
 
@@ -51,6 +51,11 @@ describe('Day 4', () => {
 	it('part 1', async () => {
 		const testInput = await readTestFile();
 		expect(first(testInput)).toBe(expectedFirstSolution);
+	});
+
+	it('part 2', async () => {
+		const testInput = await readTestFile(2);
+		expect(second(testInput)).toBe(expectedSecondSolution);
 	});
 
 	describe('utility functions', () => {
