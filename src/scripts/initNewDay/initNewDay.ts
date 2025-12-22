@@ -9,14 +9,16 @@ import { existsSync, copyFileSync, mkdirSync, writeFileSync } from 'fs';
 
 const args = process.argv.slice(2);
 const day = args[0];
+const year = '2025'; // TODO make into a variable or get from the current date
+
 if (!day) {
 	console.log('Please run with the day to bootstrap, i.e. npm run init-day 1');
 }
 console.log(`creating template for day ${day}`);
-const basePath = 'src/days';
+const basePath = `src/${year}`;
 
-if (existsSync(`src/days/${day}`)) {
-	console.log(`day ${day} already exists`);
+if (existsSync(`src/${year}/${day}`)) {
+	console.log(`day ${year}/${day} already exists`);
 	process.exit(0);
 }
 const newDayPath = `${basePath}/${day}`;
