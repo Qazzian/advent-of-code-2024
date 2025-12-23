@@ -1,12 +1,13 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": false,
-    "outDir": "dist"
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts", "src/scripts/**/*"]
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": false,
+		"outDir": "/dist"
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules", "**/*.spec.ts", "src/scripts/**/*"]
 }
