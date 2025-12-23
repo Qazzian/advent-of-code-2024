@@ -2,6 +2,7 @@ import type Puzzle from './types/Puzzle';
 import readFile from './utils/readFile';
 
 const args = process.argv.slice(2);
+const year = '2025'; // TODO make into a variable
 const dayToSolve = args[0];
 
 if (!dayToSolve) {
@@ -13,13 +14,15 @@ console.log(`Solving Day #${args[0]}`);
 	let input = '';
 	const puzzleName = args[0];
 	try {
-		const puzzlePath = `src/days/${puzzleName}`;
+		const puzzlePath = `src/${year}/${puzzleName}`;
 		input = await readFile(`${puzzlePath}/input.txt`);
 	} catch (error) {
 		console.error(error);
 		process.exit(1);
 	}
-	const { first, second }: Puzzle = await import(`./days/${puzzleName}/Puzzle`);
+	const { first, second }: Puzzle = await import(
+		`./${year}/${puzzleName}/Puzzle`
+	);
 
 	console.log(first(input));
 	console.log(second(input));
