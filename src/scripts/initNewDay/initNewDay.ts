@@ -10,7 +10,7 @@ import path from 'path';
 
 const args = process.argv.slice(2);
 const day = args[0];
-const year = '2025'; // TODO make into a variable or get from the current date
+const year = args[1] ?? '2025';
 
 if (!day) {
 	console.log('Please run with the day to bootstrap, i.e. npm run init-day 1');

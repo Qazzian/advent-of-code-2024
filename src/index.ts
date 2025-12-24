@@ -2,8 +2,8 @@ import type Puzzle from './types/Puzzle';
 import readFile from './utils/readFile';
 
 const args = process.argv.slice(2);
-const year = '2025'; // TODO make into a variable
 const dayToSolve = args[0];
+const year = args[1] ?? '2025';
 
 if (!dayToSolve) {
 	console.error('No day specified run with npm run dev {day}');
