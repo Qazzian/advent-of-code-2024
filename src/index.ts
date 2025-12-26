@@ -9,7 +9,7 @@ if (!dayToSolve) {
 	console.error('No day specified run with npm run dev {day}');
 	process.exit(1);
 }
-console.log(`Solving Day #${args[0]}`);
+console.log(`Solving Day #${args[0]} ${year}`);
 (async () => {
 	let input = '';
 	const puzzleName = args[0];
