@@ -11,25 +11,42 @@ const first = (input: string) => {
 const expectedFirstSolution = 357;
 
 const second = (input: string) => {
-	return 'solution 2';
+	const banks = input.split('\n');
+	let total = 0;
+	for (const bank of banks) {
+		total += maxJoltage(bank, 12);
+	}
+
+	return total;
 };
 
-const expectedSecondSolution = 'solution 2';
+const expectedSecondSolution = 3121910778619;
 
 export { first, expectedFirstSolution, second, expectedSecondSolution };
 
-export function maxJoltage(bank: string) {
-	const batteries = bank.split('').map((a) => parseInt(a));
-	const [firstPos, firstMax] = maxDigit(batteries.slice(0, -1));
-	const [, secondMax] = maxDigit(batteries.slice(firstPos + 1));
+type PosValue = [number, number];
 
-	return parseInt([firstMax, secondMax].join(''));
+export function maxJoltage(bank: string, batteryCount: number = 2) {
+	const batteries = bank.split('').map((a) => parseInt(a));
+	const wantedBatteries: PosValue[] = [];
+	let startPos = 0;
+	for (let i = batteryCount - 1; i >= 0; i--) {
+		const endPos = bank.length - i;
+		const bestPos = maxDigit(batteries.slice(0, endPos), startPos);
+		// console.log(bank, startPos, endPos, bestPos);
+		startPos = bestPos[0] + 1;
+		wantedBatteries.push(bestPos);
+	}
+
+	return parseInt(
+		wantedBatteries.reduce((total: string, [, value]) => (total += value), '')
+	);
 }
 
-export function maxDigit(batteries: number[]) {
-	let pos = 0;
+export function maxDigit(batteries: number[], start = 0): PosValue {
+	let pos = start;
 	let maxValue = 0;
-	for (let i = 0; i < batteries.length; i++) {
+	for (let i = start; i < batteries.length; i++) {
 		if (batteries[i] > maxValue) {
 			maxValue = batteries[i];
 			pos = i;

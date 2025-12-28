@@ -17,15 +17,17 @@ describe('Day #', async () => {
 	});
 
 	test('second solution test', async () => {
-		const input = await readTestFile(2);
+		const input = await readTestFile();
 		expect(second(input)).toBe(expectedSecondSolution);
 	});
 
 	test('max Joltage', async () => {
 		expect(maxJoltage('89')).toBe(89);
 		expect(maxJoltage('99')).toBe(99);
+		expect(maxJoltage('987', 3)).toBe(987);
 		expect(maxJoltage('987654321111111')).toBe(98);
-		expect(maxJoltage('811111111111119')).toBe(89);
+		expect(maxJoltage('987654321111111', 3)).toBe(987);
+		expect(maxJoltage('81119')).toBe(89);
 		expect(maxJoltage('234234234234278')).toBe(78);
 		expect(maxJoltage('818181911112111')).toBe(92);
 	});
@@ -34,6 +36,7 @@ describe('Day #', async () => {
 		expect(maxDigit([9, 9])).toMatchObject([0, 9]);
 		expect(maxDigit([8, 9])).toMatchObject([1, 9]);
 		expect(maxDigit([7, 8, 9])).toMatchObject([2, 9]);
+		expect(maxDigit([9, 8, 7], 1)).toMatchObject([1, 8]);
 	});
 
 	async function readTestFile(num: number = 1) {
