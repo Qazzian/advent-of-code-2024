@@ -1,4 +1,4 @@
-import { Vector } from './Vector.js';
+import { Vector, isEqual } from './Vector.js';
 
 export default class Grid<T> {
 	private readonly values: T[][];
@@ -19,17 +19,32 @@ export default class Grid<T> {
 	}
 
 	hasPos([x, y]: Vector) {
-		if (x < 0) return false;
-		if (y < 0) return false;
-		if (y >= this.height) return false;
-		if (x >= this.values[y].length) return false;
-		return true;
+		if (x < 0) {
+			return false;
+		}
+		if (y < 0) {
+			return false;
+		}
+		if (y >= this.height) {
+			return false;
+		}
+		return x < this.values[y].length;
 	}
 
-	forEach(fn: (values: T, x:number, y:number) => any) {
-		for(let y=0; y < this.values.length; y++) {
+	forEach(fn: (values: T, x: number, y: number) => void) {
+		for (let y = 0; y < this.values.length; y++) {
 			for (let x = 0; x < this.values[y].length; x++) {
 				fn(this.values[y][x], x, y);
+			}
+		}
+	}
+
+	around(center: Vector, callback: (value: T, pos: Vector) => void) {
+		for (let y = center[1] - 1; y <= center[1] + 1; y++) {
+			for (let x = center[0] - 1; x <= center[0] + 1; x++) {
+				if (this.hasPos([x, y]) && !isEqual([x, y], center)) {
+					callback(this.at([x, y]), [x, y]);
+				}
 			}
 		}
 	}
