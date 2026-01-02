@@ -15,7 +15,7 @@ describe('Day 4', async () => {
 	});
 
 	test('second solution test', async () => {
-		const input = await readTestFile(2);
+		const input = await readTestFile();
 		expect(second(input)).toBe(expectedSecondSolution);
 	});
 

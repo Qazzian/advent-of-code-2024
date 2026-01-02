@@ -11,11 +11,14 @@ export default class Grid<T> {
 		this.height = values.length;
 	}
 
-	// at(x: number, y: number): T {
-	// 	return this.values[y][x];
-	// }
 	at([x, y]: Vector) {
 		return this.values[y][x];
+	}
+
+	set([x, y]: Vector, value: T) {
+		if (this.hasPos([x, y])) {
+			this.values[y][x] = value;
+		}
 	}
 
 	hasPos([x, y]: Vector) {
